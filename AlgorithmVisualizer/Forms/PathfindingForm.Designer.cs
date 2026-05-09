@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panelGrid = new Panel();
             btnSettings = new Button();
             btnStart = new Button();
@@ -37,6 +38,7 @@
             rbWall = new RadioButton();
             grpMode = new GroupBox();
             btnback = new Button();
+            timer1 = new System.Windows.Forms.Timer(components);
             grpMode.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,6 +68,7 @@
             btnStart.TabIndex = 2;
             btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = true;
+            btnStart.Click += btnStart_Click;
             // 
             // btnClear
             // 
@@ -162,5 +165,6 @@
         private RadioButton rbWall;
         private GroupBox grpMode;
         private Button btnback;
+        private System.Windows.Forms.Timer timer1;
     }
 }

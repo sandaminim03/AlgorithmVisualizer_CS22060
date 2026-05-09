@@ -1,3 +1,4 @@
+using AlgorithmVisualizer.Algorithms.AlgorithmVisualizer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,9 +13,11 @@ namespace AlgorithmVisualizer
     {
         int gridSize = 20;
         int animationSpeed = 100;
+       
         public Pathfinding_Visualizer()
         {
             InitializeComponent();
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -35,6 +38,11 @@ namespace AlgorithmVisualizer
         private void btnback_Click(object sender, EventArgs e)
         {
             new MainForm().Show();
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

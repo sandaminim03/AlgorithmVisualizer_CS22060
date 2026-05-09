@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panelBars = new Panel();
             btnStart = new Button();
             btnGenerate = new Button();
@@ -37,6 +38,7 @@
             lblComparisons = new Label();
             cmbAlgorithm = new ComboBox();
             btnBack = new Button();
+            timer1 = new System.Windows.Forms.Timer(components);
             SuspendLayout();
             // 
             // panelBars
@@ -55,6 +57,7 @@
             btnStart.TabIndex = 1;
             btnStart.Text = "Start";
             btnStart.UseVisualStyleBackColor = true;
+            btnStart.Click += btnStart_Click;
             // 
             // btnGenerate
             // 
@@ -64,6 +67,7 @@
             btnGenerate.TabIndex = 2;
             btnGenerate.Text = "Generate";
             btnGenerate.UseVisualStyleBackColor = true;
+            btnGenerate.Click += btnGenerate_Click;
             // 
             // btnReset
             // 
@@ -139,6 +143,7 @@
             Name = "Sorting_Visualizer";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sorting Visualizer";
+            Load += Sorting_Visualizer_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -154,5 +159,6 @@
         private Label lblComparisons;
         private ComboBox cmbAlgorithm;
         private Button btnBack;
+        private System.Windows.Forms.Timer timer1;
     }
 }
