@@ -13,11 +13,36 @@ namespace AlgorithmVisualizer
     {
         int gridSize = 20;
         int animationSpeed = 100;
-       
+        int[,] grid;
+        bool[,] visited;
+        int cellWidth;
+        int cellHeight;
+
+        Point start = new Point(-1, -1);
+        Point end = new Point(-1, -1);
+
+        Queue<Point> queue = new Queue<Point>();
+        Dictionary<Point, Point> parent = new Dictionary<Point, Point>();
+
+        bool isRunning = false;
+        int cellSize;
+
+        void InitializeGrid()
+        {
+            grid = new int[gridSize, gridSize];
+            visited = new bool[gridSize, gridSize];
+            queue.Clear();
+            parent.Clear();
+
+            // Ensure the UI refreshes
+            panelGrid.Invalidate();
+        }
+
         public Pathfinding_Visualizer()
         {
             InitializeComponent();
-            
+            InitializeGrid();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -26,12 +51,21 @@ namespace AlgorithmVisualizer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                // 1. Update the core variables
                 gridSize = form.SelectedSize;
                 animationSpeed = form.SelectedSpeed;
 
-                // Apply changes later
-                // Example:
-                // Recreate grid with new size
+                // 2. Reset the start/end points (since the old coordinates might be out of bounds)
+                start = new Point(-1, -1);
+                end = new Point(-1, -1);
+
+                // 3. Re-initialize the grid array and boolean visited array
+                InitializeGrid();
+
+                // 4. Force the panel to redraw with the new cell calculations
+                panelGrid.Invalidate();
+
+                MessageBox.Show($"Grid updated to {gridSize}x{gridSize}");
             }
         }
 
@@ -41,6 +75,157 @@ namespace AlgorithmVisualizer
         }
 
         private void btnStart_Click(object sender, EventArgs e)
+        {
+            if (start.X == -1 || end.X == -1)
+            {
+                MessageBox.Show("Please select start and end points.");
+                return;
+            }
+
+            queue.Clear();
+            parent.Clear();
+            visited = new bool[gridSize, gridSize];
+
+            queue.Enqueue(start);
+            visited[start.X, start.Y] = true;
+
+            timer1.Interval = animationSpeed;
+            timer1.Start();
+        }
+
+
+        private void panelGrid_Paint(object sender, PaintEventArgs e)
+        {
+            if (grid == null) return;
+
+            cellWidth = panelGrid.Width / gridSize;
+            cellHeight = panelGrid.Height / gridSize;
+
+            for (int r = 0; r < gridSize; r++)
+            {
+                for (int c = 0; c < gridSize; c++)
+                {
+                    Brush brush = Brushes.White;
+
+                    if (grid[r, c] == 1) brush = Brushes.Black;
+                    if (grid[r, c] == 2) brush = Brushes.Green;
+                    if (grid[r, c] == 3) brush = Brushes.Red;
+                    if (grid[r, c] == 4) brush = Brushes.LightBlue;
+                    if (grid[r, c] == 5) brush = Brushes.Yellow;
+
+                    e.Graphics.FillRectangle(
+                        brush,
+                        c * cellWidth,
+                        r * cellHeight,
+                        cellWidth - 1,
+                        cellHeight - 1
+                    );
+                }
+            }
+        }
+
+        private void panelGrid_MouseClick(object sender, MouseEventArgs e)
+        {
+            cellWidth = panelGrid.Width / gridSize;
+            cellHeight = panelGrid.Height / gridSize;
+
+            int c = e.X / cellWidth;
+            int r = e.Y / cellHeight;
+
+            if (r < 0 || r >= gridSize || c < 0 || c >= gridSize)
+                return;
+
+            if (start.X == -1)
+            {
+                start = new Point(r, c);
+                grid[r, c] = 2;
+            }
+            else if (end.X == -1)
+            {
+                end = new Point(r, c);
+                grid[r, c] = 3;
+            }
+            else
+            {
+                grid[r, c] = 1;
+            }
+
+            panelGrid.Invalidate();
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (queue.Count == 0)
+            {
+                timer1.Stop();
+                MessageBox.Show("No path found");
+                return;
+            }
+
+            Point current = queue.Dequeue();
+
+            if (current == end)
+            {
+                timer1.Stop();
+                DrawPath();
+                return;
+            }
+
+            int[] dr = { -1, 1, 0, 0 };
+            int[] dc = { 0, 0, -1, 1 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                int nr = current.X + dr[i];
+                int nc = current.Y + dc[i];
+
+                if (nr >= 0 && nr < gridSize && nc >= 0 && nc < gridSize)
+                {
+                    if (!visited[nr, nc] && grid[nr, nc] != 1)
+                    {
+                        visited[nr, nc] = true;
+                        queue.Enqueue(new Point(nr, nc));
+                        parent[new Point(nr, nc)] = current;
+
+                        if (grid[nr, nc] != 3)
+                            grid[nr, nc] = 4; // visited
+                    }
+                }
+            }
+
+            panelGrid.Invalidate();
+        }
+
+        void DrawPath()
+        {
+            Point current = end;
+
+            while (current != start)
+            {
+                if (grid[current.X, current.Y] != 3)
+                    grid[current.X, current.Y] = 5;
+
+                current = parent[current];
+            }
+
+            panelGrid.Invalidate();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+
+            start = new Point(-1, -1);
+            end = new Point(-1, -1);
+
+            InitializeGrid();
+        }
+
+        private void Pathfinding_Visualizer_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
