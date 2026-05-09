@@ -15,6 +15,7 @@ namespace AlgorithmVisualizer
     {
         int arraySize = 50;
         int animationSpeed = 100;
+
         private int[]? data;
         private Random random = new Random();
         private int comparisons = 0;
@@ -102,6 +103,9 @@ namespace AlgorithmVisualizer
                 {
                     this.animationSpeed = settings.SelectedSpeed;
                     this.arraySize = settings.SelectedSize;
+
+                    
+
                     btnGenerate_Click(sender, e); // Re-generate with new size
                 }
             }
