@@ -6,46 +6,77 @@ namespace AlgorithmVisualizer.Algorithms
 {
     public class QuickSort
     {
-        public int Comparisons { get; private set; }
+        private int[] data;
+        private Stack<(int low, int high)> stack;
+        private int i, j, pivot, low, high;
+        private bool partitioning;
+        private bool isSorting;
 
-        public IEnumerable<int> Sort(int[] array)
+        public void Initialize(int[] array, int start, int end)
         {
-            Comparisons = 0;
-            Stack<(int, int)> stack = new Stack<(int, int)>();
-            stack.Push((0, array.Length - 1));
+            this.data = array;
+            this.stack = new Stack<(int, int)>();
+            this.stack.Push((start, end));
+            this.isSorting = true;
+            this.partitioning = false;
+        }
 
-            while (stack.Count > 0)
+        public bool Step(Action<int, int, bool> updateUI)
+        {
+            if (!isSorting) return true;
+
+            if (!partitioning)
             {
-                var (low, high) = stack.Pop();
-                if (low < high)
+                if (stack.Count == 0) return true;
+
+                var range = stack.Pop();
+                low = range.low;
+                high = range.high;
+
+                if (low >= high) return false;
+
+                pivot = data[high];
+                i = low - 1;
+                j = low;
+                partitioning = true;
+            }
+
+            if (partitioning)
+            {
+                if (j <= high - 1)
                 {
-                    int pivotIndex = low;
-                    int pivotValue = array[high];
-
-                    for (int i = low; i < high; i++)
+                    if (data[j] < pivot)
                     {
-                        Comparisons++;
-                        if (array[i] < pivotValue)
-                        {
-                            Swap(array, i, pivotIndex);
-                            pivotIndex++;
-                            yield return i; // Pause for animation
-                        }
+                        i++;
+                        Swap(i, j);
+                        updateUI(i, j, true);
                     }
-                    Swap(array, pivotIndex, high);
-                    yield return pivotIndex;
+                    else
+                    {
+                        updateUI(i, j, false);
+                    }
+                    j++;
+                }
+                else
+                {
+                    Swap(i + 1, high);
+                    updateUI(i + 1, high, true);
 
-                    stack.Push((pivotIndex + 1, high));
-                    stack.Push((low, pivotIndex - 1));
+                    int pIdx = i + 1;
+                    stack.Push((pIdx + 1, high));
+                    stack.Push((low, pIdx - 1));
+                    partitioning = false;
                 }
             }
+            return false;
         }
 
-        private void Swap(int[] array, int i, int j)
+        private void Swap(int a, int b)
         {
-            int temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
+            int temp = data[a];
+            data[a] = data[b];
+            data[b] = temp;
         }
     }
+
 }

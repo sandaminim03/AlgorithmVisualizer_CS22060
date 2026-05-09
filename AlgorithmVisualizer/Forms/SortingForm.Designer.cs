@@ -48,6 +48,7 @@
             panelBars.Name = "panelBars";
             panelBars.Size = new Size(840, 350);
             panelBars.TabIndex = 0;
+            panelBars.Paint += panelBars_Paint;
             // 
             // btnStart
             // 
@@ -77,6 +78,7 @@
             btnReset.TabIndex = 3;
             btnReset.Text = "Reset";
             btnReset.UseVisualStyleBackColor = true;
+            btnReset.Click += btnReset_Click;
             // 
             // btnSettings
             // 
@@ -125,6 +127,10 @@
             btnBack.Text = "Back";
             btnBack.UseVisualStyleBackColor = true;
             btnBack.Click += btnBack_Click;
+            // 
+            // timer1
+            // 
+            timer1.Tick += timer1_Tick;
             // 
             // Sorting_Visualizer
             // 

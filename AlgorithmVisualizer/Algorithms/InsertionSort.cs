@@ -6,27 +6,45 @@ namespace AlgorithmVisualizer.Algorithms
 {
     public class InsertionSort
     {
-        public int Comparisons { get; private set; }
+        private int[] data;
+        private int i;
+        private int j;
+        private bool isSorting;
 
-        public IEnumerable<int> Sort(int[] array)
+        public void Initialize(int[] array)
         {
-            Comparisons = 0;
-            for (int i = 1; i < array.Length; i++)
-            {
-                int key = array[i];
-                int j = i - 1;
+            this.data = array;
+            this.i = 1;
+            this.j = 0;
+            this.isSorting = true;
+        }
 
-                while (j >= 0 && array[j] > key)
-                {
-                    Comparisons++;
-                    array[j + 1] = array[j];
-                    j--;
-                    // Yield return to update the UI after each shift
-                    yield return j + 1;
-                }
-                array[j + 1] = key;
-                yield return i;
+        public bool Step(Action<int, int, bool> updateUI)
+        {
+            if (!isSorting || i >= data.Length)
+            {
+                isSorting = false;
+                return true; // Sorting is finished
+            }
+
+            if (j >= 0 && data[j] > data[j + 1])
+            {
+                // Perform the swap
+                int temp = data[j];
+                data[j] = data[j + 1];
+                data[j + 1] = temp;
+
+                updateUI(j, j + 1, true);
+                j--;
+                return false; // Step completed, continue sorting
+            }
+            else
+            {
+                i++;
+                j = i - 1;
+                return false;
             }
         }
     }
+
 }
