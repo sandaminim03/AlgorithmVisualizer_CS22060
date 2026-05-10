@@ -65,13 +65,14 @@ namespace AlgorithmVisualizer
                 // 4. Force the panel to redraw with the new cell calculations
                 panelGrid.Invalidate();
 
-                MessageBox.Show($"Grid updated to {gridSize}x{gridSize}");
+                MessageBox.Show($"Grid updated");
             }
         }
 
         private void btnback_Click(object sender, EventArgs e)
         {
             new MainForm().Show();
+            this.Close();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -101,6 +102,9 @@ namespace AlgorithmVisualizer
             cellWidth = panelGrid.Width / gridSize;
             cellHeight = panelGrid.Height / gridSize;
 
+
+
+
             for (int r = 0; r < gridSize; r++)
             {
                 for (int c = 0; c < gridSize; c++)
@@ -121,6 +125,21 @@ namespace AlgorithmVisualizer
                         cellHeight - 1
                     );
                 }
+                
+            }
+
+            Pen pen = new Pen(Color.LightGray);
+
+            // vertical lines
+            for (int i = 0; i <= gridSize; i++)
+            {
+                e.Graphics.DrawLine(pen, i * cellWidth, 0, i * cellWidth, panelGrid.Height);
+            }
+
+            // horizontal lines
+            for (int i = 0; i <= gridSize; i++)
+            {
+                e.Graphics.DrawLine(pen, 0, i * cellHeight, panelGrid.Width, i * cellHeight);
             }
         }
 

@@ -18,11 +18,13 @@ namespace AlgorithmVisualizer
         private void btnSorting_Click(object sender, EventArgs e)
         {
             new Sorting_Visualizer().Show();
+            this.Hide();
         }
 
         private void btnPathfinding_Click(object sender, EventArgs e)
         {
             new Pathfinding_Visualizer().Show();
+            this.Hide();
         }
     }
 }
