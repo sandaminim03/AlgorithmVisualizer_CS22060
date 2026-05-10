@@ -50,5 +50,10 @@ namespace AlgorithmVisualizer
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        private void numSize_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

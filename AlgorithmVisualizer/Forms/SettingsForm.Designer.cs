@@ -65,6 +65,7 @@
             numSize.Size = new Size(120, 31);
             numSize.TabIndex = 2;
             numSize.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            numSize.ValueChanged += numSize_ValueChanged_1;
             // 
             // numSpeed
             // 

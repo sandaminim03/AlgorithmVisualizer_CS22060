@@ -30,7 +30,6 @@ namespace AlgorithmVisualizer
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            // Enable double buffering on the panel to prevent flickering
             var type = panelBars.GetType();
             var pi = type.GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
             pi?.SetValue(panelBars, true, null);
@@ -43,7 +42,6 @@ namespace AlgorithmVisualizer
 
             for (int i = 0; i < arraySize; i++)
             {
-                // Scale height to fit the panel
                 data[i] = random.Next(10, panelBars.Height - 20);
             }
 
@@ -54,7 +52,7 @@ namespace AlgorithmVisualizer
 
             UpdateComparisonLabel();
             panelBars.Invalidate();
-            SetControlsEnabled(true);
+            
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -66,13 +64,12 @@ namespace AlgorithmVisualizer
                 return;
             }
 
-            SetControlsEnabled(false);
-            isSorted = false;
+        isSorted = false;
             comparisons = 0;
 
             string selected = cmbAlgorithm.SelectedItem.ToString()!;
 
-            // Initialize the chosen algorithm
+            
             if (selected == "Insertion Sort")
             {
                 _insertionSort.Initialize(data!);
@@ -82,7 +79,7 @@ namespace AlgorithmVisualizer
                 _quickSort.Initialize(data!, 0, data!.Length - 1);
             }
 
-            // Map speed: higher speed value = lower interval
+            
             timer1.Interval = Math.Max(1, 101 - animationSpeed);
             timer1.Start();
         }
@@ -97,7 +94,7 @@ namespace AlgorithmVisualizer
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            using (var settings = new SettingsForm(animationSpeed, arraySize))
+            using (var settings = new SettingsForm(arraySize, animationSpeed))
             {
                 if (settings.ShowDialog() == DialogResult.OK)
                 {
@@ -106,27 +103,26 @@ namespace AlgorithmVisualizer
 
                     
 
-                    btnGenerate_Click(sender, e); // Re-generate with new size
+                    btnGenerate_Click(sender, e); 
                 }
             }
         }
-
-
+        
         private void panelBars_Paint(object sender, PaintEventArgs e)
         {
             if (data == null) return;
 
             Graphics g = e.Graphics;
-            // Calculate bar width based on panel size and array length
+           
             float barWidth = (float)panelBars.Width / data.Length;
 
             for (int i = 0; i < data.Length; i++)
             {
-                Brush brush = Brushes.SkyBlue; // Default color
+                Brush brush = Brushes.SkyBlue; 
 
-                if (isSorted) brush = Brushes.LimeGreen; // Sorted state
-                else if (i == currentComparingIdx) brush = Brushes.Red; // Comparing state
-                else if (i == currentSwappingIdx) brush = Brushes.Gold; // Swapping state
+                if (isSorted) brush = Brushes.LimeGreen; 
+                else if (i == currentComparingIdx) brush = Brushes.Red; 
+                else if (i == currentSwappingIdx) brush = Brushes.Gold; 
 
                 float x = i * barWidth;
                 float height = data[i];
@@ -140,17 +136,6 @@ namespace AlgorithmVisualizer
             lblComparisons.Text = $"{comparisons}";
         }
 
-        private void SetControlsEnabled(bool enabled)
-        {
-            btnStart.Enabled = enabled;
-            btnGenerate.Enabled = enabled;
-            btnReset.Enabled = enabled;
-            btnSettings.Enabled = enabled;
-            btnBack.Enabled = enabled;
-            cmbAlgorithm.Enabled = enabled;
-        }
-
-
         private void Sorting_Visualizer_Load(object sender, EventArgs e)
         {
 
@@ -161,7 +146,7 @@ namespace AlgorithmVisualizer
             bool finished = false;
             string selected = cmbAlgorithm.SelectedItem.ToString()!;
 
-            // Execute one step of the algorithm
+            
             if (selected == "Insertion Sort")
             {
                 finished = _insertionSort.Step((idx1, idx2, isSwap) =>
@@ -182,7 +167,7 @@ namespace AlgorithmVisualizer
             }
 
             UpdateComparisonLabel();
-            panelBars.Invalidate(); // Redraw the bars
+            panelBars.Invalidate(); 
 
             if (finished)
             {
@@ -191,7 +176,7 @@ namespace AlgorithmVisualizer
                 currentComparingIdx = -1;
                 currentSwappingIdx = -1;
                 panelBars.Invalidate();
-                SetControlsEnabled(true);
+                
                 MessageBox.Show("Sorting Complete!");
             }
         }

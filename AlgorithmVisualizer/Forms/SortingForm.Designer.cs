@@ -43,6 +43,7 @@
             // 
             // panelBars
             // 
+            panelBars.BackColor = Color.White;
             panelBars.BorderStyle = BorderStyle.FixedSingle;
             panelBars.Location = new Point(20, 80);
             panelBars.Name = "panelBars";
@@ -52,57 +53,73 @@
             // 
             // btnStart
             // 
+            btnStart.BackColor = Color.White;
+            btnStart.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnStart.ForeColor = Color.CornflowerBlue;
             btnStart.Location = new Point(200, 470);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(100, 40);
             btnStart.TabIndex = 1;
             btnStart.Text = "Start";
-            btnStart.UseVisualStyleBackColor = true;
+            btnStart.UseVisualStyleBackColor = false;
             btnStart.Click += btnStart_Click;
             // 
             // btnGenerate
             // 
+            btnGenerate.BackColor = Color.White;
+            btnGenerate.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGenerate.ForeColor = Color.CornflowerBlue;
             btnGenerate.Location = new Point(80, 470);
             btnGenerate.Name = "btnGenerate";
             btnGenerate.Size = new Size(100, 40);
             btnGenerate.TabIndex = 2;
             btnGenerate.Text = "Generate";
-            btnGenerate.UseVisualStyleBackColor = true;
+            btnGenerate.UseVisualStyleBackColor = false;
             btnGenerate.Click += btnGenerate_Click;
             // 
             // btnReset
             // 
+            btnReset.BackColor = Color.White;
+            btnReset.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnReset.ForeColor = Color.CornflowerBlue;
             btnReset.Location = new Point(320, 470);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(100, 40);
             btnReset.TabIndex = 3;
             btnReset.Text = "Reset";
-            btnReset.UseVisualStyleBackColor = true;
+            btnReset.UseVisualStyleBackColor = false;
             btnReset.Click += btnReset_Click;
             // 
             // btnSettings
             // 
+            btnSettings.BackColor = Color.White;
+            btnSettings.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSettings.ForeColor = Color.CornflowerBlue;
             btnSettings.Location = new Point(760, 20);
             btnSettings.Name = "btnSettings";
             btnSettings.Size = new Size(100, 40);
             btnSettings.TabIndex = 4;
             btnSettings.Text = "Settings";
-            btnSettings.UseVisualStyleBackColor = true;
+            btnSettings.UseVisualStyleBackColor = false;
             btnSettings.Click += btnSettings_Click;
             // 
             // lblCompText
             // 
             lblCompText.AutoSize = true;
+            lblCompText.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCompText.ForeColor = Color.DarkGray;
             lblCompText.Location = new Point(20, 30);
             lblCompText.Name = "lblCompText";
-            lblCompText.Size = new Size(126, 25);
+            lblCompText.Size = new Size(129, 25);
             lblCompText.TabIndex = 5;
             lblCompText.Text = "Comparisons :";
             // 
             // lblComparisons
             // 
             lblComparisons.AutoSize = true;
-            lblComparisons.Location = new Point(139, 32);
+            lblComparisons.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblComparisons.ForeColor = Color.DarkGray;
+            lblComparisons.Location = new Point(149, 32);
             lblComparisons.Name = "lblComparisons";
             lblComparisons.Size = new Size(22, 25);
             lblComparisons.TabIndex = 6;
@@ -110,6 +127,9 @@
             // 
             // cmbAlgorithm
             // 
+            cmbAlgorithm.BackColor = Color.White;
+            cmbAlgorithm.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cmbAlgorithm.ForeColor = Color.FromArgb(20, 24, 40);
             cmbAlgorithm.FormattingEnabled = true;
             cmbAlgorithm.Items.AddRange(new object[] { "Insertion Sort", "Quick Sort" });
             cmbAlgorithm.Location = new Point(600, 470);
@@ -120,12 +140,15 @@
             // 
             // btnBack
             // 
+            btnBack.BackColor = Color.White;
+            btnBack.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBack.ForeColor = Color.CornflowerBlue;
             btnBack.Location = new Point(440, 470);
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(100, 40);
             btnBack.TabIndex = 8;
             btnBack.Text = "Back";
-            btnBack.UseVisualStyleBackColor = true;
+            btnBack.UseVisualStyleBackColor = false;
             btnBack.Click += btnBack_Click;
             // 
             // timer1
@@ -136,6 +159,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(20, 24, 40);
             ClientSize = new Size(878, 544);
             Controls.Add(btnBack);
             Controls.Add(cmbAlgorithm);
