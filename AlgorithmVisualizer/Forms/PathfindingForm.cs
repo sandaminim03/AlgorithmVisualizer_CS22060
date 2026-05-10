@@ -23,48 +23,27 @@ namespace AlgorithmVisualizer
 
         Queue<Point> queue = new Queue<Point>();
         Dictionary<Point, Point> parent = new Dictionary<Point, Point>();
-
-        bool isRunning = false;
-        int cellSize;
-
-        void InitializeGrid()
-        {
-            grid = new int[gridSize, gridSize];
-            visited = new bool[gridSize, gridSize];
-            queue.Clear();
-            parent.Clear();
-
-            // Ensure the UI refreshes
-            panelGrid.Invalidate();
-        }
-
-        public Pathfinding_Visualizer()
+       public Pathfinding_Visualizer()
         {
             InitializeComponent();
             InitializeGrid();
-
         }
-
-        private void button1_Click(object sender, EventArgs e)
+       private void button1_Click(object sender, EventArgs e)
         {
             SettingsForm form = new SettingsForm(gridSize, animationSpeed);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // 1. Update the core variables
+           
                 gridSize = form.SelectedSize;
                 animationSpeed = form.SelectedSpeed;
 
-                // 2. Reset the start/end points (since the old coordinates might be out of bounds)
                 start = new Point(-1, -1);
                 end = new Point(-1, -1);
 
-                // 3. Re-initialize the grid array and boolean visited array
+
                 InitializeGrid();
-
-                // 4. Force the panel to redraw with the new cell calculations
                 panelGrid.Invalidate();
-
                 MessageBox.Show($"Grid updated");
             }
         }
@@ -94,6 +73,16 @@ namespace AlgorithmVisualizer
             timer1.Start();
         }
 
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            timer1.Stop();
+
+            start = new Point(-1, -1);
+            end = new Point(-1, -1);
+
+            InitializeGrid();
+        }
+
 
         private void panelGrid_Paint(object sender, PaintEventArgs e)
         {
@@ -101,9 +90,6 @@ namespace AlgorithmVisualizer
 
             cellWidth = panelGrid.Width / gridSize;
             cellHeight = panelGrid.Height / gridSize;
-
-
-
 
             for (int r = 0; r < gridSize; r++)
             {
@@ -130,13 +116,11 @@ namespace AlgorithmVisualizer
 
             Pen pen = new Pen(Color.LightGray);
 
-            // vertical lines
             for (int i = 0; i <= gridSize; i++)
             {
                 e.Graphics.DrawLine(pen, i * cellWidth, 0, i * cellWidth, panelGrid.Height);
             }
 
-            // horizontal lines
             for (int i = 0; i <= gridSize; i++)
             {
                 e.Graphics.DrawLine(pen, 0, i * cellHeight, panelGrid.Width, i * cellHeight);
@@ -206,11 +190,20 @@ namespace AlgorithmVisualizer
                         parent[new Point(nr, nc)] = current;
 
                         if (grid[nr, nc] != 3)
-                            grid[nr, nc] = 4; // visited
+                            grid[nr, nc] = 4; 
                     }
                 }
             }
 
+            panelGrid.Invalidate();
+        }
+
+        void InitializeGrid()
+        {
+            grid = new int[gridSize, gridSize];
+            visited = new bool[gridSize, gridSize];
+            queue.Clear();
+            parent.Clear();
             panelGrid.Invalidate();
         }
 
@@ -229,17 +222,7 @@ namespace AlgorithmVisualizer
             panelGrid.Invalidate();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            timer1.Stop();
-
-            start = new Point(-1, -1);
-            end = new Point(-1, -1);
-
-            InitializeGrid();
-        }
-
-        private void Pathfinding_Visualizer_Load(object sender, EventArgs e)
+       private void Pathfinding_Visualizer_Load(object sender, EventArgs e)
         {
 
         }
