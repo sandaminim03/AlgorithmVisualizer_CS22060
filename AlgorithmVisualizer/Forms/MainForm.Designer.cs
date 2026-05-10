@@ -81,7 +81,7 @@
             ForeColor = Color.White;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Main Form";
+            Text = "Algorithm Visualizer";
             ResumeLayout(false);
             PerformLayout();
         }
