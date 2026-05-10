@@ -1,4 +1,6 @@
-﻿namespace AlgorithmVisualizer
+﻿using System.Security.Cryptography;
+
+namespace AlgorithmVisualizer
 {
     partial class Sorting_Visualizer
     {
@@ -128,15 +130,17 @@
             // cmbAlgorithm
             // 
             cmbAlgorithm.BackColor = Color.White;
+            cmbAlgorithm.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbAlgorithm.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             cmbAlgorithm.ForeColor = Color.FromArgb(20, 24, 40);
             cmbAlgorithm.FormattingEnabled = true;
-            cmbAlgorithm.Items.AddRange(new object[] { "Insertion Sort", "Quick Sort" });
+            cmbAlgorithm.Items.AddRange(new object[] { "-Select Algorithm-", "Insertion Sort", "Quick Sort" });
             cmbAlgorithm.Location = new Point(600, 470);
             cmbAlgorithm.Name = "cmbAlgorithm";
-            cmbAlgorithm.Size = new Size(150, 33);
+            cmbAlgorithm.Size = new Size(192, 33);
             cmbAlgorithm.TabIndex = 7;
-            cmbAlgorithm.Text = "Algorithm";
+            cmbAlgorithm.SelectedIndexChanged += cmbAlgorithm_SelectedIndexChanged_1;
+            cmbAlgorithm.SelectedIndex = 0;
             // 
             // btnBack
             // 

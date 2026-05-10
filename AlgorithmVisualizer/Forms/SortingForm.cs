@@ -52,34 +52,38 @@ namespace AlgorithmVisualizer
 
             UpdateComparisonLabel();
             panelBars.Invalidate();
-            
+
         }
 
         private void btnStart_Click(object sender, EventArgs e)
-        {
-            if (data == null) btnGenerate_Click(sender, e);
-            if (cmbAlgorithm.SelectedItem == null)
+        { 
+            
+
+            if (data == null || data.Length == 0)
+            {
+                MessageBox.Show("Please generate an array!");
+                return;
+            }
+
+            isSorted = false;
+            comparisons = 0;
+
+            if (cmbAlgorithm.SelectedIndex == 0)
             {
                 MessageBox.Show("Please select an algorithm from the dropdown!");
                 return;
             }
-
-        isSorted = false;
-            comparisons = 0;
-
-            string selected = cmbAlgorithm.SelectedItem.ToString()!;
-
-            
-            if (selected == "Insertion Sort")
+            else if (cmbAlgorithm.SelectedIndex == 1)
             {
                 _insertionSort.Initialize(data!);
             }
-            else if (selected == "Quick Sort")
+            else if (cmbAlgorithm.SelectedIndex == 2)
             {
                 _quickSort.Initialize(data!, 0, data!.Length - 1);
             }
-
             
+
+
             timer1.Interval = Math.Max(1, 101 - animationSpeed);
             timer1.Start();
         }
@@ -101,28 +105,28 @@ namespace AlgorithmVisualizer
                     this.animationSpeed = settings.SelectedSpeed;
                     this.arraySize = settings.SelectedSize;
 
-                    
 
-                    btnGenerate_Click(sender, e); 
+
+                    btnGenerate_Click(sender, e);
                 }
             }
         }
-        
+
         private void panelBars_Paint(object sender, PaintEventArgs e)
         {
             if (data == null) return;
 
             Graphics g = e.Graphics;
-           
+
             float barWidth = (float)panelBars.Width / data.Length;
 
             for (int i = 0; i < data.Length; i++)
             {
-                Brush brush = Brushes.SkyBlue; 
+                Brush brush = Brushes.SkyBlue;
 
-                if (isSorted) brush = Brushes.LimeGreen; 
-                else if (i == currentComparingIdx) brush = Brushes.Red; 
-                else if (i == currentSwappingIdx) brush = Brushes.Gold; 
+                if (isSorted) brush = Brushes.LimeGreen;
+                else if (i == currentComparingIdx) brush = Brushes.Red;
+                else if (i == currentSwappingIdx) brush = Brushes.Gold;
 
                 float x = i * barWidth;
                 float height = data[i];
@@ -144,10 +148,8 @@ namespace AlgorithmVisualizer
         private void timer1_Tick(object sender, EventArgs e)
         {
             bool finished = false;
-            string selected = cmbAlgorithm.SelectedItem.ToString()!;
-
-            
-            if (selected == "Insertion Sort")
+        
+            if (cmbAlgorithm.SelectedIndex==1)
             {
                 finished = _insertionSort.Step((idx1, idx2, isSwap) =>
                 {
@@ -156,7 +158,7 @@ namespace AlgorithmVisualizer
                     comparisons++;
                 });
             }
-            else if (selected == "Quick Sort")
+            else if (cmbAlgorithm.SelectedIndex == 2)
             {
                 finished = _quickSort.Step((idx1, idx2, isSwap) =>
                 {
@@ -167,7 +169,7 @@ namespace AlgorithmVisualizer
             }
 
             UpdateComparisonLabel();
-            panelBars.Invalidate(); 
+            panelBars.Invalidate();
 
             if (finished)
             {
@@ -176,7 +178,7 @@ namespace AlgorithmVisualizer
                 currentComparingIdx = -1;
                 currentSwappingIdx = -1;
                 panelBars.Invalidate();
-                
+
                 MessageBox.Show("Sorting Complete!");
             }
         }
@@ -185,6 +187,16 @@ namespace AlgorithmVisualizer
         {
             timer1.Stop();
             btnGenerate_Click(sender, e);
+        }
+
+        private void cmbAlgorithm_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbAlgorithm_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

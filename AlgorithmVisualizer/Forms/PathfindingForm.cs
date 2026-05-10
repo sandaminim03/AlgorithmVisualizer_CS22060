@@ -69,7 +69,7 @@ namespace AlgorithmVisualizer
             queue.Enqueue(start);
             visited[start.X, start.Y] = true;
 
-            timer1.Interval = animationSpeed;
+            timer1.Interval = Math.Max(1, 101 - animationSpeed);
             timer1.Start();
         }
 
