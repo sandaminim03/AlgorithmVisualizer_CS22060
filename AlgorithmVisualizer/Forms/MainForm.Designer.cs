@@ -37,7 +37,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.Location = new Point(150, 50);
+            label1.Location = new Point(118, 50);
             label1.Name = "label1";
             label1.Size = new Size(368, 48);
             label1.TabIndex = 0;
@@ -45,35 +45,41 @@
             // 
             // btnSorting
             // 
+            btnSorting.BackColor = Color.White;
             btnSorting.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSorting.ForeColor = Color.FromArgb(20, 24, 40);
             btnSorting.Location = new Point(200, 130);
             btnSorting.Name = "btnSorting";
             btnSorting.Size = new Size(200, 50);
             btnSorting.TabIndex = 1;
             btnSorting.Text = "Sorting Visualizer";
-            btnSorting.UseVisualStyleBackColor = true;
+            btnSorting.UseVisualStyleBackColor = false;
             btnSorting.Click += btnSorting_Click;
             // 
             // btnPathfinding
             // 
+            btnPathfinding.BackColor = Color.White;
             btnPathfinding.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPathfinding.ForeColor = Color.FromArgb(20, 24, 40);
             btnPathfinding.Location = new Point(200, 200);
             btnPathfinding.Name = "btnPathfinding";
             btnPathfinding.Size = new Size(200, 58);
             btnPathfinding.TabIndex = 2;
             btnPathfinding.Text = "Pathfinding Visualizer";
-            btnPathfinding.UseVisualStyleBackColor = true;
+            btnPathfinding.UseVisualStyleBackColor = false;
             btnPathfinding.Click += btnPathfinding_Click;
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(20, 24, 40);
             ClientSize = new Size(578, 344);
             Controls.Add(btnPathfinding);
             Controls.Add(btnSorting);
             Controls.Add(label1);
-            Name = "Form1";
+            ForeColor = Color.White;
+            Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main Form";
             ResumeLayout(false);
